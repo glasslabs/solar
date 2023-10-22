@@ -1,0 +1,31 @@
+<svg viewBox="0 0 300 300" width="250" height="250">
+    <g id="chart">
+        <circle r="125" cx="150" cy="150" transform="rotate(123,150,150)"
+                fill="none" stroke="rgb(40,40,40)" stroke-width="45" stroke-dasharray="640.82 785.40"/>
+        <circle id="load" r="140" cx="150" cy="150" class="chart" style="--percentage: 0"/>
+        <circle id="pv" r="130" cx="150" cy="150" class="chart" style="--percentage: 0"/>
+        <circle id="battery" r="120" cx="150" cy="150" class="chart" style="--percentage: 0"/>
+        <circle id="grid" r="110" cx="150" cy="150" class="chart" style="--percentage: 0"/>
+    </g>
+
+    <g id="icons">
+        <path id="grid-disconnect" d="M 35.5246 29.8246 L 19.8005 3.7476 c -0.3974 -0.659 -1.1109 -1.062 -1.8805 -1.062 c -0.7696 0 -1.4832 0.4029 -1.8805 1.062 L 0.3154 29.8246 c -0.4089 0.6783 -0.421 1.5242 -0.0316 2.2138 c 0.3895 0.6896 1.1201 1.1161 1.9121 1.1161 h 31.4481 c 0.792 0 1.5226 -0.4265 1.9121 -1.1161 C 35.9456 31.3488 35.9335 30.5029 35.5246 29.8246 z M 22.5178 19.5906 l -5.911 8.0822 c -0.1345 0.1839 -0.379 0.2493 -0.5873 0.1571 c -0.2083 -0.0922 -0.3244 -0.317 -0.2787 -0.5403 l 1.2289 -6.0082 H 13.9384 c -0.2927 0 -0.5605 -0.1644 -0.6929 -0.4254 c -0.1324 -0.261 -0.1071 -0.5743 0.0657 -0.8105 l 5.911 -8.0823 c 0.1345 -0.1839 0.379 -0.2493 0.5873 -0.1571 c 0.2084 0.0922 0.3244 0.317 0.2787 0.5403 l -1.2289 6.0082 h 3.0313 c 0.2927 0 0.5605 0.1644 0.6929 0.4254 C 22.716 19.041 22.6906 19.3544 22.5178 19.5906 z"
+              transform="translate(130,185)"
+              fill="rgb(242, 73, 92)"
+              class="off"
+        />
+    </g>
+
+    <g id="batterySoC" style="--percentage: 0">
+        <rect x="105" y="240" width="90" height="28" rx="2" ry="2"
+              fill="none" stroke="rgb(100,100,100)"/>
+        <rect x="107" y="242" height="24" width="86" class="fill"/>
+        <text x="150" y="255" dominant-baseline="middle" text-anchor="middle" class="value">0%</text>
+    </g>
+
+    <text id="loadText" x="50%" y="50%" class="number" dominant-baseline="middle" text-anchor="middle">
+        <tspan class="super"></tspan>
+        <tspan class="sub" dx="-20" dy="6"></tspan>
+        <tspan class="units" dx="-10" dy="6">kWh</tspan>
+    </text>
+</svg>

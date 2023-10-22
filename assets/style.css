@@ -1,0 +1,67 @@
+.chart {
+    r: var(--radius);
+    transform: rotate(-90deg);
+    transform-origin: center center;
+    fill: none;
+    stroke-width: 5;
+    stroke: #444;
+    stroke-dasharray: calc(2 * pi * var(--radius));
+    stroke-dashoffset: calc(2 * pi * var(--radius) * (1 - ((var(--percentage) / 100) * -0.4)));
+    transition: stroke-dashoffset 0.3s linear 0.1s;
+}
+
+#load.chart {
+    --radius: 140;
+    stroke: rgb(115, 191, 105);
+}
+
+#pv.chart {
+    --radius: 130;
+    stroke: rgb(255, 152, 48);
+}
+
+#battery.chart {
+    --radius: 120;
+    stroke: rgb(87, 148, 242);
+}
+
+#grid.chart {
+    --radius: 110;
+    stroke: rgb(242, 73, 92);
+}
+
+#icons .off {
+    display: none;
+}
+
+#batterySoC .fill {
+    fill: rgb(87, 148, 242);
+    width: calc(86px * (var(--percentage) / 100));
+    transition: width 0.3s linear 0.1s;
+}
+
+#batterySoC.warning .fill {
+    fill: rgb(255, 152, 48);
+}
+
+#batterySoC.low .fill {
+    fill: rgb(242, 73, 92);
+}
+
+#batterySoC > text {
+    fill: #fff;
+    font-size: 20px;
+}
+
+#loadText {
+    fill: #fff;
+    font-size: 70px;
+}
+
+#loadText .sub {
+    font-size: 45px;
+}
+
+#loadText .units {
+    font-size: 20px;
+}
