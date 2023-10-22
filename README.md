@@ -1,39 +1,64 @@
-![Logo](http://svg.wiersma.co.za/glasslabs/module?title=CLOCK&tag=a%20simple%20clock%20module)
+![Logo](http://svg.wiersma.co.za/glasslabs/module?title=SOLAR&tag=a%20solar%20inverter%20module)
 
-Clock is a simple clock module for [looking glass](http://github.com/glasslabs/looking-glass)
-
-![Screenshot](.readme/screenshot.png)
+Solar inverter module for [looking glass](http://github.com/glasslabs/looking-glass)
 
 ## Usage
 
-Clone the clock into a path under your modules path and add the module path
-to under modules in your configuration.
-
 ```yaml
 modules:
- - name: simple-clock
-    url:  https://github.com/glasslabs/clock/releases/download/v1.0.0/clock.wasm
+ - name: simple-solar
+    url:  https://github.com/glasslabs/solar/releases/download/v1.0.0/solar.wasm
     position: top:right
     config:
-      timeFormat: 15:04
+      url: http://my-hass-instance:8123
+      token: <your-hass-token>
+      sensorIds:
+        load: sensor.deye_sunsynk_sol_ark_load_power
+        pv: sensor.deye_sunsynk_sol_ark_pv_power
+        battery: sensor.deye_sunsynk_sol_ark_battery_power
+        batterySoC: sensor.deye_sunsynk_sol_ark_battery_state_of_charge
+        grid: sensor.deye_sunsynk_sol_ark_generator_power
+        gridFrequency: sensor.deye_sunsynk_sol_ark_grid_frequency
+      battery:
+        warning: 50
+        low: 30
+      maxWatts: 6000
 ```
 
 ## Configuration
 
-### Time Format (timeFormat)
+### Load Sensor ID (sensorIds.load)
 
-*Default: 15:04*
+The Home Assistant load power sensor ID.
 
-Formats the time display of the clock using Go's [time formatting syntax](https://golang.org/pkg/time/#Time.Format).
+### PV Sensor ID (sensorIds.pv)
 
-### Date Format (dateFormat)
+The Home Assistant PV power sensor ID.
 
-*Default: Monday, January 2*
+### Battery Sensor ID (sensorIds.battery)
 
-Formats the date display of the clock using Go's [time formatting syntax](https://golang.org/pkg/time/#Time.Format).
+The Home Assistant Battery power sensor ID.
 
-### Time Zone (timezone)
+### Battery SoC Sensor ID (sensorIds.batterySoC)
 
-*Default: Local*
+The Home Assistant Battery State of Charge sensor ID.
 
-The timezone name according to [IANA Time Zone databse](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
+### Grid Sensor ID (sensorIds.grid)
+
+The Home Assistant Grid power sensor ID.
+
+### Grid Frequency Sensor ID (sensorIds.gridFrequency)
+
+The Home Assistant grid frequency sensor ID. This is used to determine if there is a grid connection.
+
+### Battery Warning Percentage (battery.warning)
+
+The Battery percentage for the battery bar to display in warning style.
+
+### Battery Low Percentage (battery.low)
+
+The Battery percentage for the battery bar to display in low style.
+
+### Maximum Watts (maxWatts)
+
+The maximum Watts used to scale the other sensors.
