@@ -158,13 +158,15 @@ const percentageVar = "--percentage: "
 func (m *Module) updateState(id, state string) {
 	switch id {
 	case m.cfg.SensorIDs.Load:
-		w, err := strconv.ParseInt(state, 10, 64)
+		w, err := strconv.ParseFloat(state, 64)
 		if err != nil {
+			m.log.Error("Could not parse load state", "state", state, "error", err.Error())
+
 			return
 		}
 		kw := int(w / 1000)
-		cw := int((w % 1000) / 10)
-		per := float64(w) / float64(m.cfg.MaxWatts) * 100
+		cw := (int(w) % 1000) / 10
+		per := w / float64(m.cfg.MaxWatts) * 100
 		perStr := strconv.FormatFloat(per, 'f', 2, 64)
 
 		if elem := m.mod.Element().QuerySelector("#load"); elem != nil {
@@ -177,38 +179,44 @@ func (m *Module) updateState(id, state string) {
 			elem.SetTextContent("." + strconv.Itoa(cw))
 		}
 	case m.cfg.SensorIDs.PV:
-		w, err := strconv.ParseInt(state, 10, 64)
+		w, err := strconv.ParseFloat(state, 64)
 		if err != nil {
+			m.log.Error("Could not parse pv state", "state", state, "error", err.Error())
+
 			return
 		}
-		per := float64(w) / float64(m.cfg.MaxWatts) * 100
+		per := w / float64(m.cfg.MaxWatts) * 100
 		perStr := strconv.FormatFloat(per, 'f', 2, 64)
 
 		if elem := m.mod.Element().QuerySelector("#pv"); elem != nil {
 			elem.SetAttribute("style", percentageVar+perStr)
 		}
 	case m.cfg.SensorIDs.Battery:
-		w, err := strconv.ParseInt(state, 10, 64)
+		w, err := strconv.ParseFloat(state, 64)
 		if err != nil {
+			m.log.Error("Could not parse battery state", "state", state, "error", err.Error())
+
 			return
 		}
-		per := float64(w) / float64(m.cfg.MaxWatts) * 100
+		per := w / float64(m.cfg.MaxWatts) * 100
 		perStr := strconv.FormatFloat(per, 'f', 2, 64)
 
 		if elem := m.mod.Element().QuerySelector("#battery"); elem != nil {
 			elem.SetAttribute("style", percentageVar+perStr)
 		}
 	case m.cfg.SensorIDs.BatterySoC:
-		per, err := strconv.ParseInt(state, 10, 64)
+		per, err := strconv.ParseFloat(state, 64)
 		if err != nil {
+			m.log.Error("Could not parse battery SoC state", "state", state, "error", err.Error())
+
 			return
 		}
 		perStr := strconv.Itoa(int(per))
 
 		var class string
-		if per <= int64(m.cfg.Battery.Low) {
+		if per <= float64(m.cfg.Battery.Low) {
 			class = "low"
-		} else if per <= int64(m.cfg.Battery.Warning) {
+		} else if per <= float64(m.cfg.Battery.Warning) {
 			class = "warning"
 		}
 
@@ -226,6 +234,8 @@ func (m *Module) updateState(id, state string) {
 	case m.cfg.SensorIDs.Grid:
 		w, err := strconv.ParseInt(state, 10, 64)
 		if err != nil {
+			m.log.Error("Could not parse grid state", "state", state, "error", err.Error())
+
 			return
 		}
 		per := float64(w) / float64(m.cfg.MaxWatts) * 100
@@ -237,6 +247,8 @@ func (m *Module) updateState(id, state string) {
 	case m.cfg.SensorIDs.GridFrequency:
 		hz, err := strconv.ParseFloat(state, 64)
 		if err != nil {
+			m.log.Error("Could not parse grid frequency state", "state", state, "error", err.Error())
+
 			return
 		}
 
