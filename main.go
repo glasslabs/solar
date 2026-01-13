@@ -165,7 +165,7 @@ func (m *Module) updateState(id, state string) {
 			return
 		}
 		kw := int(w / 1000)
-		cw := int((int(w) % 1000) / 10)
+		cw := (int(w) % 1000) / 10
 		per := w / float64(m.cfg.MaxWatts) * 100
 		perStr := strconv.FormatFloat(per, 'f', 2, 64)
 
